@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #f8f7f4;
+    color: #171717;
+  }
+
+  body {
+    background-color: #f8f7f4;
+    color: #171717;
+    overflow-x: hidden;
+  }
+}
+
+/* Editorial Hairlines */
+.hairline-b {
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.hairline-t {
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.hairline-r {
+  border-right: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1eee7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4cfc4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a29e;
+}
