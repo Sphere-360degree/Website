@@ -1,0 +1,8 @@
+# SPHERIONIX — Redirects & Static Routing Rules
+
+# Explicit static assets (return HTTP 200 without SPA rewrite)
+/sitemap.xml    /sitemap.xml    200
+/robots.txt     /robots.txt     200
+
+# Single Page App fallback
+/*              /index.html     200

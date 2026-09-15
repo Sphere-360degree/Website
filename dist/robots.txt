@@ -1,0 +1,10 @@
+# robots.txt for SPHERIONIX (https://www.spherionix.com/)
+User-agent: *
+Allow: /
+
+# Googlebot specific rules (unrestricted crawl access)
+User-agent: Googlebot
+Allow: /
+
+# XML Sitemap location
+Sitemap: https://www.spherionix.com/sitemap.xml

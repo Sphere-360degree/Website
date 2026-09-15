@@ -18,6 +18,10 @@ import {
   ShieldCheck,
   CalendarCheck
 } from 'lucide-react';
+import { LeadService } from '../../services/leadService';
+import { AnalyticsService } from '../../services/analyticsService';
+import { FormInput } from '../ui/FormInput';
+import { Button } from '../ui/Button';
 
 interface DiagnosticState {
   industry: string;
@@ -37,7 +41,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
   const [copied, setCopied] = useState(false);
   
   const [state, setState] = useState<DiagnosticState>({
-    industry: 'Professional Services / Agency',
+    industry: 'Services & Agencies',
     primaryFriction: null,
     secondaryFriction: null,
     desiredGoal: null,
@@ -45,7 +49,11 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
 
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [referenceId, setReferenceId] = useState<string>('');
 
   // Industry Presets
   const industries = [
@@ -107,21 +115,32 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
   const handleSelectStep1 = (id: string) => {
     setState((prev) => ({ ...prev, primaryFriction: id }));
     setStep(2);
+    AnalyticsService.trackAssessmentStep(1, id, state.industry);
   };
 
   const handleSelectStep2 = (id: string) => {
     setState((prev) => ({ ...prev, secondaryFriction: id }));
     setStep(3);
+    AnalyticsService.trackAssessmentStep(2, id, state.industry);
   };
 
   const handleSelectStep3 = (id: string) => {
     setState((prev) => ({ ...prev, desiredGoal: id }));
     setStep(4);
+    AnalyticsService.trackAssessmentStep(3, id, state.industry);
+    AnalyticsService.trackEvent({
+      name: 'assessment_completed',
+      properties: {
+        friction: state.primaryFriction || '',
+        goal: id,
+        industry: state.industry,
+      },
+    });
   };
 
   const handleReset = () => {
     setState({
-      industry: 'Professional Services / Agency',
+      industry: 'Services & Agencies',
       primaryFriction: null,
       secondaryFriction: null,
       desiredGoal: null,
@@ -129,6 +148,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
     setStep(1);
     setSubmitted(false);
     setCopied(false);
+    setFormError(null);
   };
 
   // Compute dynamic synthesis
@@ -213,15 +233,44 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
     
     navigator.clipboard.writeText(summaryText);
     setCopied(true);
+    AnalyticsService.trackEvent({
+      name: 'copy_diagnostic_report',
+      properties: { industry: state.industry },
+    });
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    onDirectConsultation(
-      `Diagnostic Plan: ${synthesis.frictionSummary} | Industry: ${state.industry} | Reclaimed Goal: ${state.desiredGoal} | Contact: ${contactName} (${contactEmail})`
-    );
+    setIsSubmitting(true);
+    setFormError(null);
+
+    const result = await LeadService.submitLead({
+      name: contactName,
+      email: contactEmail,
+      honeypot,
+      source: 'assessment_canvas',
+      industry: state.industry,
+      assessmentData: {
+        primaryFriction: state.primaryFriction || '',
+        secondaryFriction: state.secondaryFriction || '',
+        desiredGoal: state.desiredGoal || '',
+        synthesis: synthesis.frictionSummary,
+      },
+    });
+
+    setIsSubmitting(false);
+
+    if (result.success) {
+      setSubmitted(true);
+      setReferenceId(result.referenceId || '');
+      AnalyticsService.trackLeadSubmission('assessment_canvas');
+      onDirectConsultation(
+        `Diagnostic Plan: ${synthesis.frictionSummary} | Industry: ${state.industry} | Reclaimed Goal: ${state.desiredGoal} | Contact: ${contactName} (${contactEmail})`
+      );
+    } else {
+      setFormError(result.message || 'Please check your information and try again.');
+    }
   };
 
   return (
@@ -230,7 +279,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
         
         {/* Editorial Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-6 border-b border-[#171717]/10 gap-4">
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 text-left">
             <div className="inline-flex items-center gap-2">
               <span className="font-mono text-xs uppercase tracking-widest text-[#c2410c] font-bold">
                 01 / Interactive Diagnostic
@@ -254,6 +303,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
             </div>
             {step > 1 && (
               <button
+                type="button"
                 onClick={handleReset}
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border border-[#171717]/10 text-xs font-semibold text-[#171717] hover:text-[#c2410c] hover:border-[#c2410c] transition-all cursor-pointer"
               >
@@ -265,8 +315,9 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
         </div>
 
         {/* Step Progression Breadcrumb Bar */}
-        <div className="grid grid-cols-4 gap-2 mb-6 text-center text-xs font-mono">
+        <div className="grid grid-cols-4 gap-2 mb-6 text-center text-xs font-mono" role="tablist">
           <button
+            type="button"
             onClick={() => setStep(1)}
             className={`py-2 px-1 rounded-lg border transition-all text-[11px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer ${
               step === 1
@@ -281,6 +332,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
           </button>
 
           <button
+            type="button"
             onClick={() => state.primaryFriction && setStep(2)}
             disabled={!state.primaryFriction}
             className={`py-2 px-1 rounded-lg border transition-all text-[11px] font-semibold flex items-center justify-center gap-1.5 ${
@@ -296,6 +348,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
           </button>
 
           <button
+            type="button"
             onClick={() => state.secondaryFriction && setStep(3)}
             disabled={!state.secondaryFriction}
             className={`py-2 px-1 rounded-lg border transition-all text-[11px] font-semibold flex items-center justify-center gap-1.5 ${
@@ -311,6 +364,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
           </button>
 
           <button
+            type="button"
             onClick={() => state.desiredGoal && setStep(4)}
             disabled={!state.desiredGoal}
             className={`py-2 px-1 rounded-lg border transition-all text-[11px] font-semibold flex items-center justify-center gap-1.5 ${
@@ -329,7 +383,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
           
           {/* Industry Preset Selector (Top of Steps 1-3) */}
           {step < 4 && (
-            <div className="mb-6 pb-5 border-b border-[#171717]/10 space-y-2">
+            <div className="mb-6 pb-5 border-b border-[#171717]/10 space-y-2 text-left">
               <label className="text-[11px] font-mono uppercase tracking-wider text-[#666663] font-bold block">
                 Select your industry context:
               </label>
@@ -359,7 +413,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
 
           {/* STEP 1 */}
           {step === 1 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
+            <div className="space-y-6 animate-in fade-in duration-200 text-left">
               <div className="space-y-1">
                 <span className="text-xs font-mono font-bold text-[#c2410c] uppercase tracking-wider">
                   Step 1 of 3 — Primary Friction
@@ -415,7 +469,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
 
           {/* STEP 2 */}
           {step === 2 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
+            <div className="space-y-6 animate-in fade-in duration-200 text-left">
               <div className="space-y-1">
                 <span className="text-xs font-mono font-bold text-[#c2410c] uppercase tracking-wider">
                   Step 2 of 3 — Day-to-Day Bottleneck
@@ -462,7 +516,7 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
 
           {/* STEP 3 */}
           {step === 3 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
+            <div className="space-y-6 animate-in fade-in duration-200 text-left">
               <div className="space-y-1">
                 <span className="text-xs font-mono font-bold text-[#c2410c] uppercase tracking-wider">
                   Step 3 of 3 — Core Desired Outcome
@@ -642,11 +696,28 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
                       <h4 className="text-base font-bold">Diagnostic Request Received</h4>
                     </div>
                     <p className="text-xs sm:text-sm text-[#444442] leading-relaxed">
-                      Thank you, {contactName}. We have logged your assessment details and will email your full review to <span className="font-bold">{contactEmail}</span> within 1 business day.
+                      Thank you, <span className="font-bold">{contactName}</span>. We have logged your assessment details and will email your full review to <span className="font-bold">{contactEmail}</span> within 1 business day.
                     </p>
+                    {referenceId && (
+                      <span className="inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-[#f1eee7] text-[#737373]">
+                        Ref: {referenceId}
+                      </span>
+                    )}
                   </div>
                 ) : (
                   <form onSubmit={handleContactSubmit} className="p-6 rounded-2xl bg-white border border-[#171717]/10 shadow-xs space-y-4">
+                    
+                    {/* Honeypot field for bot protection */}
+                    <div style={{ display: 'none' }} aria-hidden="true">
+                      <input
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                      />
+                    </div>
+
                     <div className="space-y-1">
                       <h4 className="text-base font-bold text-[#171717] flex items-center gap-2">
                         <CalendarCheck className="w-4 h-4 text-[#c2410c]" />
@@ -657,53 +728,51 @@ export const SignatureAssessmentCanvas: React.FC<SignatureAssessmentCanvasProps>
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase text-[#171717] font-semibold mb-1">
-                          Your Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={contactName}
-                          onChange={(e) => setContactName(e.target.value)}
-                          placeholder="Alex Morgan"
-                          className="w-full p-3 rounded-xl border border-[#171717]/20 text-xs sm:text-sm bg-white focus:border-[#171717] focus:ring-1 focus:ring-[#171717] outline-none"
-                        />
+                    {formError && (
+                      <div className="p-3 rounded-lg bg-red-50 text-red-700 text-xs font-medium border border-red-200">
+                        {formError}
                       </div>
+                    )}
 
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase text-[#171717] font-semibold mb-1">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={contactEmail}
-                          onChange={(e) => setContactEmail(e.target.value)}
-                          placeholder="alex@yourcompany.com"
-                          className="w-full p-3 rounded-xl border border-[#171717]/20 text-xs sm:text-sm bg-white focus:border-[#171717] focus:ring-1 focus:ring-[#171717] outline-none"
-                        />
-                      </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <FormInput
+                        label="Your Name"
+                        required
+                        placeholder="Alex Morgan"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                      />
+
+                      <FormInput
+                        label="Email Address"
+                        type="email"
+                        required
+                        placeholder="alex@yourcompany.com"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                      />
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
-                      <button
+                      <Button
                         type="submit"
-                        className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#171717] hover:bg-[#c2410c] text-white font-semibold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg cursor-pointer"
+                        variant="primary"
+                        size="md"
+                        isLoading={isSubmitting}
+                        rightIcon={<ArrowRight className="w-4 h-4" />}
                       >
-                        <span>Discuss This Plan With Spherionix</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
+                        Discuss This Plan With Spherionix
+                      </Button>
 
-                      <button
+                      <Button
                         type="button"
+                        variant="outline"
+                        size="sm"
                         onClick={handleReset}
-                        className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-[#171717]/20 hover:border-[#171717] text-[#666663] hover:text-[#171717] text-xs font-semibold transition-colors cursor-pointer"
+                        leftIcon={<RotateCcw className="w-3.5 h-3.5" />}
                       >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                        <span>Retake Assessment</span>
-                      </button>
+                        Retake Assessment
+                      </Button>
                     </div>
 
                     <div className="flex items-center gap-2 text-[11px] font-mono text-[#666663]">
