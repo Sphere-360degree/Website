@@ -18,7 +18,7 @@ export const AssessmentSummaryCard: React.FC<AssessmentSummaryCardProps> = ({
       <div className="bg-slate-900 text-white p-5 sm:p-7 space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          Spheroinix AI Assessment
+          Spherionix AI Assessment
         </div>
 
         <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -73,7 +73,7 @@ export const AssessmentSummaryCard: React.FC<AssessmentSummaryCardProps> = ({
         <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2.5">
           <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold text-amber-900 block">Spheroinix Advice:</span>
+            <span className="font-bold text-amber-900 block">Spherionix Advice:</span>
             <span>{assessment.strategicAdvice}</span>
           </div>
         </div>

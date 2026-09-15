@@ -58,9 +58,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAssessment }) => {
         <div className="hidden sm:flex items-center">
           <button
             onClick={onOpenAssessment}
-            className="px-5 py-2.5 rounded-xl bg-[#171717] hover:bg-[#c2410c] text-white text-xs font-semibold transition-colors shadow-xs"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#171717] hover:bg-[#c2410c] text-white text-xs font-semibold transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
-            Start Assessment →
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span>Start Assessment</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
           </button>
         </div>
 

@@ -38,11 +38,11 @@ export const ContactSection: React.FC = () => {
           {/* Direct Email Callout */}
           <div className="pt-2">
             <a
-              href="mailto:info@spheroinix.com"
+              href="mailto:info@spherionix.com"
               className="inline-flex items-center gap-2 text-sm font-semibold text-[#171717] hover:text-[#c2410c] transition-colors"
             >
               <Mail className="w-4 h-4 text-[#c2410c]" />
-              <span>info@spheroinix.com</span>
+              <span>info@spherionix.com</span>
             </a>
           </div>
         </div>

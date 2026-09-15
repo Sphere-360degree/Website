@@ -29,7 +29,7 @@ export const UseCasesSection: React.FC<UseCasesSectionProps> = ({
             Real problems. Practical solutions.
           </h2>
           <p className="text-base text-slate-600">
-            Click on any common business bottleneck below to see how Spheroinix solves it without unnecessary complexity.
+            Click on any common business bottleneck below to see how Spherionix solves it without unnecessary complexity.
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export const UseCasesSection: React.FC<UseCasesSectionProps> = ({
             {/* Practical Spheroinix Solution */}
             <div className="space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-brand-700 block">
-                Spheroinix Practical Implementation: {activeCase.solution}
+                Spherionix Practical Implementation: {activeCase.solution}
               </span>
 
               <p className="text-sm text-slate-700 leading-relaxed">

@@ -60,7 +60,7 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold">Spheroinix Complete Services Directory</h2>
+              <h2 className="text-base sm:text-lg font-bold">Spherionix Complete Services Directory</h2>
               <p className="text-xs text-slate-400 hidden sm:block">
                 All 9 practical advisory, automation, and custom engineering services
               </p>

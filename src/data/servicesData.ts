@@ -122,7 +122,7 @@ export const allServices: ServiceItem[] = [
       'Seamless human handoff when a complex issue arises'
     ],
     practicalExamples: [
-      'A consultation intake assistant just like the one on Spheroinix.com',
+      'A consultation intake assistant just like the one on Spherionix.com',
       'An e-commerce concierge helping shoppers find the right product specifications',
       'A service business assistant qualifying prospective clients before booking a discovery call'
     ],

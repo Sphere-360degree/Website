@@ -1,16 +1,16 @@
 export const companyConfig = {
-  name: 'Spheroinix',
+  name: 'Spherionix',
   tagline: 'Practical AI & Business Consulting',
   subTagline: 'Helping businesses use AI, automation, and better processes to work smarter.',
   coreMessage: "Tell us your problem. We'll help you figure out what to do next.",
   smallLine: 'Start with your problem. Not the technology.',
   
   description: 
-    'Spheroinix is a boutique consultancy helping small and mid-sized businesses use AI, automation, technology, and better business processes without the corporate fluff.',
+    'Spherionix is a boutique consultancy helping small and mid-sized businesses use AI, automation, technology, and better business processes without the corporate fluff.',
   
   aboutStory: {
     lead: 'We start with the problem, not the technology.',
-    paragraph1: 'Spheroinix helps businesses understand where AI and technology can create real, measurable value. We do not recommend technology simply because it is trending or popular.',
+    paragraph1: 'Spherionix helps businesses understand where AI and technology can create real, measurable value. We do not recommend technology simply because it is trending or popular.',
     paragraph2: 'We first understand your business, identify the bottlenecks holding you back, and then determine whether AI, automation, process improvement, or a simpler traditional solution makes the most sense.',
     principles: [
       {
@@ -33,15 +33,15 @@ export const companyConfig = {
   },
 
   contact: {
-    email: 'info@spheroinix.com',
+    email: 'info@spherionix.com',
     phone: '+1 (800) 555-SPHERO',
     location: 'Available Globally / Remote & On-site Advisory',
     businessHours: 'Monday – Friday: 9am – 6pm EST',
   },
 
   links: {
-    linkedin: 'https://linkedin.com/company/spheroinix',
-    twitter: 'https://twitter.com/spheroinix',
-    github: 'https://github.com/spheroinix',
+    linkedin: 'https://linkedin.com/company/spherionix',
+    twitter: 'https://twitter.com/spherionix',
+    github: 'https://github.com/spherionix',
   }
 };

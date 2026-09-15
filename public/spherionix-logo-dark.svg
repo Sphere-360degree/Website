@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80" fill="none">
+  <!-- Spherionix Geometric Emblem -->
+  <g transform="translate(10, 10)">
+    <!-- Outer Boundary Ring -->
+    <circle cx="30" cy="30" r="27" stroke="#171717" stroke-width="1.75" stroke-opacity="0.25" />
+    
+    <!-- Dynamic Orbit 1 (-30deg) -->
+    <ellipse cx="30" cy="30" rx="27" ry="11" transform="rotate(-30 30 30)" stroke="#171717" stroke-width="2" />
+    
+    <!-- Dynamic Orbit 2 (+30deg dashed) -->
+    <ellipse cx="30" cy="30" rx="27" ry="11" transform="rotate(30 30 30)" stroke="#737373" stroke-width="1.5" stroke-dasharray="4 3" />
+    
+    <!-- Inner System Sphere -->
+    <circle cx="30" cy="30" r="13" fill="#f1eee7" stroke="#d4cfc4" stroke-width="1.5" />
+    
+    <!-- Intelligent Core (Terracotta Ochre) -->
+    <circle cx="30" cy="30" r="6.5" fill="#c2410c" />
+    
+    <!-- Satellite Nodes -->
+    <circle cx="50" cy="18" r="3" fill="#c2410c" />
+    <circle cx="10.5" cy="41.5" r="2.25" fill="#171717" />
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(85, 42)">
+    <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', sans-serif" font-size="24" font-weight="800" fill="#171717" letter-spacing="-0.03em">SPHERIONIX</text>
+    <text x="1.5" y="16" font-family="'JetBrains Mono', 'SF Mono', Consolas, monospace" font-size="9" font-weight="600" fill="#737373" letter-spacing="0.22em">CONSULTING</text>
+  </g>
+</svg>

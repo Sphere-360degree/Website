@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" fill="none">
+  <!-- Dark Background -->
+  <rect width="800" height="800" fill="#141414"/>
+  
+  <!-- Subtle Ambient Glow -->
+  <circle cx="400" cy="400" r="280" fill="#c2410c" fill-opacity="0.08"/>
+  <circle cx="400" cy="400" r="160" fill="#ea580c" fill-opacity="0.12"/>
+  
+  <!-- Precision Emblem Scaled to Center (800x800) -->
+  <g transform="translate(400, 400)">
+    <!-- Outer Orbit Ring -->
+    <circle cx="0" cy="0" r="260" stroke="#f1eee7" stroke-width="8" stroke-opacity="0.25"/>
+    
+    <!-- Dynamic Orbit 1 (-30deg) -->
+    <ellipse cx="0" cy="0" rx="260" ry="105" transform="rotate(-30)" stroke="#f8f7f4" stroke-width="9"/>
+    
+    <!-- Dynamic Orbit 2 (+30deg dashed) -->
+    <ellipse cx="0" cy="0" rx="260" ry="105" transform="rotate(30)" stroke="#9ca3af" stroke-width="7" stroke-dasharray="24 18"/>
+    
+    <!-- Inner Equilibrium Core -->
+    <circle cx="0" cy="0" r="125" fill="#1f1f1f" stroke="#404040" stroke-width="7"/>
+    
+    <!-- Intelligent Nucleus (Terracotta Orange) -->
+    <circle cx="0" cy="0" r="58" fill="#ea580c"/>
+    
+    <!-- Satellite Alignment Nodes -->
+    <circle cx="190" cy="-115" r="28" fill="#ea580c"/>
+    <circle cx="-190" cy="115" r="22" fill="#f8f7f4"/>
+  </g>
+</svg>

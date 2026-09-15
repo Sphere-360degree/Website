@@ -131,7 +131,7 @@ export async function generateAIAssessment(answers: IntakeAnswer): Promise<Asses
 
     const timeframes = ['1 to 2 weeks', '2 to 3 weeks', '3 to 5 weeks'];
     const nextSteps = [
-      'Initial 30-minute discovery & workflow walkthrough with Spheroinix',
+      'Initial 30-minute discovery & workflow walkthrough with Spherionix',
       'Process mapping & opportunity scoping assessment',
       'Proof-of-concept pilot plan tailored to your existing software'
     ];
@@ -155,7 +155,7 @@ export async function generateAIAssessment(answers: IntakeAnswer): Promise<Asses
     synthesis = `Based on what you've shared regarding "${answers.freeformProblem.trim().slice(0, 140)}${answers.freeformProblem.length > 140 ? '...' : ''}", we see clear opportunities to eliminate operational bottlenecks and streamline how ${teamText} operates in the ${industryText} space.`;
   } else if (selectedGoals.length > 0) {
     const goalLabels = selectedGoals.map((g) => formatGoalLabel(g)).join(', ');
-    synthesis = `We understand that you're looking to ${goalLabels.toLowerCase()} for your team in ${industryText}. Spheroinix focuses on solving these operational pain points with practical, non-intimidating technology.`;
+    synthesis = `We understand that you're looking to ${goalLabels.toLowerCase()} for your team in ${industryText}. Spherionix focuses on solving these operational pain points with practical, non-intimidating technology.`;
   } else {
     synthesis = `As a ${roleText.toLowerCase()} managing ${teamText} in ${industryText}, your primary leverage comes from streamlining repetitive operations, documenting core workflows, and adopting AI where it delivers immediate ROI.`;
   }

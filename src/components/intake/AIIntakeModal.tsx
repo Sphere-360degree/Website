@@ -300,7 +300,7 @@ export const AIIntakeModal: React.FC<AIIntakeModalProps> = ({
               <div className="space-y-2">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
                   <Sparkles className="w-3 h-3" />
-                  Spheroinix Recommendations
+                  Spherionix Recommendations
                 </span>
                 <h3 className="text-2xl font-bold text-slate-900">
                   Here's where we think we can help.
@@ -353,7 +353,7 @@ export const AIIntakeModal: React.FC<AIIntakeModalProps> = ({
                   onClick={() => setStage('lead-capture')}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02]"
                 >
-                  Talk to Spheroinix →
+                  Talk to Spherionix →
                 </button>
               </div>
             </div>
@@ -365,7 +365,7 @@ export const AIIntakeModal: React.FC<AIIntakeModalProps> = ({
           {stage === 'lead-capture' && (
             <form onSubmit={handleLeadSubmit} className="space-y-4 text-left">
               <div>
-                <h3 className="text-2xl font-bold text-slate-900">Talk to Spheroinix</h3>
+                <h3 className="text-2xl font-bold text-slate-900">Talk to Spherionix</h3>
                 <p className="text-xs text-slate-500 mt-1">
                   We'll review your challenge and prepare practical, jargon-free options before our 20-minute chat.
                 </p>

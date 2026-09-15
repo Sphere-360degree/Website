@@ -32,7 +32,7 @@ export const AssessmentDrawer: React.FC<AssessmentDrawerProps> = ({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-white">Your Spheroinix Assessment</span>
+                <span className="text-xs font-bold text-white">Your Spherionix Assessment</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
               <p className="text-[11px] text-slate-400 truncate">

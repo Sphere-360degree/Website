@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPHERIONIX — High-Resolution Brand Asset Exporter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#f8f7f4] text-[#171717] p-6 sm:p-12 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <div class="space-y-2 border-b border-[#171717]/10 pb-6">
+      <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#c2410c] font-bold">
+        <span>SPHERIONIX</span>
+        <span>/</span>
+        <span>Brand Identity Assets</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171717]">
+        High-Quality Logo Files & 4K PNG Exporters
+      </h1>
+      <p class="text-sm text-[#666663]">
+        Download infinitely scalable vector SVGs or export ultra-high-resolution (4000×1000px / 4K) PNG images.
+      </p>
+    </div>
+
+    <!-- Assets Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Asset 1: Primary Dark Logo -->
+      <div class="p-6 rounded-2xl bg-white border border-[#171717]/10 space-y-4 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold uppercase text-[#c2410c]">Primary Horizontal Logo</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[#f1eee7] text-[#171717] font-semibold">Dark / Transparent</span>
+          </div>
+          <div class="p-8 rounded-xl bg-[#f8f7f4] border border-[#171717]/5 flex items-center justify-center min-h-[140px]">
+            <img src="/spherionix-logo-dark.svg" alt="SPHERIONIX Logo Dark" class="max-h-16 w-auto" />
+          </div>
+          <p class="text-xs text-[#666663]">Best for white/light websites, documents, proposals, and letterheads.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <a href="/spherionix-logo-dark.svg" download="spherionix-logo-dark.svg" class="px-4 py-2 rounded-xl bg-[#171717] text-white text-xs font-semibold hover:bg-[#c2410c] transition-colors">
+            Download SVG Vector ↓
+          </a>
+          <button onclick="exportPNG('dark', 3200, 800)" class="px-4 py-2 rounded-xl border border-[#171717]/20 text-[#171717] text-xs font-semibold hover:border-[#171717] hover:bg-white transition-colors">
+            Export 4K PNG (Transparent) ↓
+          </button>
+        </div>
+      </div>
+
+      <!-- Asset 2: White/Light Logo -->
+      <div class="p-6 rounded-2xl bg-[#171717] text-white border border-[#262626] space-y-4 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold uppercase text-[#ea580c]">Light Horizontal Logo</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/10 text-white font-semibold">Light / Dark Mode</span>
+          </div>
+          <div class="p-8 rounded-xl bg-[#1f1f1f] border border-white/5 flex items-center justify-center min-h-[140px]">
+            <img src="/spherionix-logo-light.svg" alt="SPHERIONIX Logo Light" class="max-h-16 w-auto" />
+          </div>
+          <p class="text-xs text-[#a3a3a3]">Best for dark backgrounds, pitch decks, merchandise, and banners.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <a href="/spherionix-logo-light.svg" download="spherionix-logo-light.svg" class="px-4 py-2 rounded-xl bg-[#ea580c] text-white text-xs font-semibold hover:bg-[#c2410c] transition-colors">
+            Download SVG Vector ↓
+          </a>
+          <button onclick="exportPNG('light', 3200, 800)" class="px-4 py-2 rounded-xl border border-white/20 text-white text-xs font-semibold hover:border-white transition-colors">
+            Export 4K PNG (Transparent) ↓
+          </button>
+        </div>
+      </div>
+
+      <!-- Asset 3: Standalone Emblem -->
+      <div class="p-6 rounded-2xl bg-white border border-[#171717]/10 space-y-4 shadow-sm flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold uppercase text-[#c2410c]">Precision Emblem</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[#f1eee7] text-[#171717] font-semibold">Icon / Favicon / App Icon</span>
+          </div>
+          <div class="p-8 rounded-xl bg-[#f8f7f4] border border-[#171717]/5 flex items-center justify-center min-h-[140px]">
+            <img src="/spherionix-emblem.svg" alt="SPHERIONIX Emblem" class="w-20 h-20" />
+          </div>
+          <p class="text-xs text-[#666663]">Square icon for profile photos, watermarks, favicons, and apps.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <a href="/spherionix-emblem.svg" download="spherionix-emblem.svg" class="px-4 py-2 rounded-xl bg-[#171717] text-white text-xs font-semibold hover:bg-[#c2410c] transition-colors">
+            Download SVG Vector ↓
+          </a>
+          <button onclick="exportPNG('emblem', 2000, 2000)" class="px-4 py-2 rounded-xl border border-[#171717]/20 text-[#171717] text-xs font-semibold hover:border-[#171717] hover:bg-white transition-colors">
+            Export 2K PNG Icon ↓
+          </button>
+        </div>
+      </div>
+
+      <!-- Asset 4: Return to Main Site -->
+      <div class="p-6 rounded-2xl bg-[#f1eee7] border border-[#171717]/10 space-y-4 shadow-sm flex flex-col justify-between">
+        <div class="space-y-2">
+          <span class="text-xs font-mono font-bold uppercase text-[#171717]">Live Website</span>
+          <h3 class="text-lg font-bold text-[#171717]">View Active Website</h3>
+          <p class="text-xs text-[#666663] leading-relaxed">
+            All logo files are active across the navbar, hero, assessment diagnostic, and footer components.
+          </p>
+        </div>
+
+        <div class="pt-4">
+          <a href="/" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#171717] text-white text-xs font-semibold hover:bg-[#c2410c] transition-colors">
+            ← Return to SPHERIONIX Homepage
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Hidden canvas for rendering 4K high-res PNGs -->
+  <canvas id="exportCanvas" style="display: none;"></canvas>
+
+  <script>
+    function exportPNG(type, width, height) {
+      const canvas = document.getElementById('exportCanvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, width, height);
+
+      let svgUrl = '';
+      let filename = '';
+
+      if (type === 'dark') {
+        svgUrl = '/spherionix-logo-dark.svg';
+        filename = 'spherionix-logo-dark-4k.png';
+      } else if (type === 'light') {
+        svgUrl = '/spherionix-logo-light.svg';
+        filename = 'spherionix-logo-light-4k.png';
+      } else if (type === 'emblem') {
+        svgUrl = '/spherionix-emblem.svg';
+        filename = 'spherionix-emblem-2k.png';
+      }
+
+      const img = new Image();
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0, width, height);
+        const a = document.createElement('a');
+        a.download = filename;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+      img.src = svgUrl;
+    }
+  </script>
+</body>
+</html>

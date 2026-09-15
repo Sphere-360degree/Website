@@ -35,10 +35,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAssessment }) => {
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#737373]">
           <div>
-            © {new Date().getFullYear()} Spheroinix. Plain-English consulting.
+            © 2026 SPHERIONIX LLC. All rights reserved.
           </div>
           <div>
-            <a href="mailto:info@spheroinix.com" className="hover:text-white">info@spheroinix.com</a>
+            <a href="mailto:info@spherionix.com" className="hover:text-white">info@spherionix.com</a>
           </div>
         </div>
 
